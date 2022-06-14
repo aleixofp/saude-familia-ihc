@@ -24,29 +24,17 @@ public class AtendimentoController {
 
     @PostMapping("/salvar")
     public ResponseEntity<?> salvar(@RequestBody AtendimentoVO request){
-        try {
-            this.atendimentoService.salvar(request);
-            return ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .build();
-        } catch (Exception e){
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(e.getMessage());
-        }
+        this.atendimentoService.salvar(request);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .build();
     }
 
     @PostMapping("/buscar")
-    public ResponseEntity<?> buscar(@RequestBody AtendimentoFiltroVO request){
-        try {
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(this.atendimentoService.listar(request));
-        } catch (Exception e){
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(e.getMessage());
-        }
+    public ResponseEntity<List<AtendimentoCompletoVO>> buscar(@RequestBody AtendimentoFiltroVO request){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(this.atendimentoService.listar(request));
     }
 
 }

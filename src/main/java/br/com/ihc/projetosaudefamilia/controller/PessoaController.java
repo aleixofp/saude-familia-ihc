@@ -20,29 +20,17 @@ public class PessoaController {
 
     @GetMapping("/validar-cpf/{cpf}")
     public ResponseEntity<Boolean> validarCpf(@PathVariable("cpf") String cpf){
-        try {
-            var result = this.cpfService.validarCpf(cpf) && !this.pessoaService.existePessoaComCpf(cpf);
-            return ResponseEntity
-                    .ok(result);
-        } catch (Exception e){
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .build();
-        }
+        var result = this.cpfService.validarCpf(cpf) && !this.pessoaService.existePessoaComCpf(cpf);
+        return ResponseEntity
+                .ok(result);
     }
 
     @PostMapping("/salvar")
     public ResponseEntity<?> salvar(@RequestBody PessoaVO pessoaVO){
-        try {
-            this.pessoaService.salvar(pessoaVO);
-            return ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .build();
-        } catch (Exception e){
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(e.getMessage());
-        }
+        this.pessoaService.salvar(pessoaVO);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .build();
     }
 
 

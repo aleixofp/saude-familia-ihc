@@ -20,16 +20,10 @@ public class EnderecoController {
     private CEPService cepService;
 
     @GetMapping("/consultar-cep/{cep}")
-    public ResponseEntity<EnderecoVO> consultarCep(@PathVariable("cep") String cep){
-        try {
-            var result = this.cepService.consultarCEP(cep);
-            return ResponseEntity
-                    .ok(result);
-        } catch (IOException e) {
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .build();
-        }
+    public ResponseEntity<EnderecoVO> consultarCep(@PathVariable("cep") String cep) throws IOException {
+        var result = this.cepService.consultarCEP(cep);
+        return ResponseEntity
+                .ok(result);
     }
 
 }
