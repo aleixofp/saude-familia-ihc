@@ -1,0 +1,12 @@
+server:
+  servlet:
+    context-path: /projeto-saude-familia
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:postgresql://localhost:5432/saude-familia
+    username: postgres
+    password: 123
