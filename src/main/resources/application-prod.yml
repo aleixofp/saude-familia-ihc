@@ -1,0 +1,12 @@
+server:
+  servlet:
+    context-path: /projeto-saude-familia
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: postgres://jlcuaiydyezjcw:063d949e1df125017f946c3d039bdc6004fa2792d25c54549713d0d70fed6a76@ec2-52-72-99-110.compute-1.amazonaws.com:5432/d9lk9bskhqvgfv
+    username: jlcuaiydyezjcw
+    password: 063d949e1df125017f946c3d039bdc6004fa2792d25c54549713d0d70fed6a76
