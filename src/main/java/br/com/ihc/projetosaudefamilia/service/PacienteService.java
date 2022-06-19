@@ -35,4 +35,18 @@ public class PacienteService {
         }).collect(Collectors.toList());
     }
 
+    public PessoaVO buscarPorId(Long id) {
+        var paciente = pacienteRepository.findById(id).orElse(null);
+
+        if (paciente != null) {
+            var pessoa = this.pessoaMapper.map(paciente);
+            var endereco = this.enderecoMapper.map(paciente.getEnderecoResidencia());
+
+            pessoa.setEndereco(endereco);
+
+            return pessoa;
+        } else {
+            return null;
+        }
+    }
 }

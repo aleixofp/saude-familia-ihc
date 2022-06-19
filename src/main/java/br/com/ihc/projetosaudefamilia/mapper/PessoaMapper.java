@@ -4,6 +4,9 @@ import br.com.ihc.projetosaudefamilia.entity.Pessoa;
 import br.com.ihc.projetosaudefamilia.vo.PessoaVO;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class PessoaMapper {
 
@@ -17,6 +20,12 @@ public class PessoaMapper {
         vo.setTelefone(pessoa.getTelefoneContato());
         vo.setPerfil(pessoa.getTipo());
         return vo;
+    }
+
+    public List<PessoaVO> map(List<Pessoa> pessoas) {
+        var vos = new ArrayList<PessoaVO>();
+        pessoas.forEach(pessoa -> vos.add(map(pessoa)));
+        return vos;
     }
 
     public Pessoa map(PessoaVO pessoaVO) {

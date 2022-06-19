@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("pessoa")
 public class PessoaController {
@@ -36,6 +38,21 @@ public class PessoaController {
                 .build();
     }
 
+    @GetMapping("/buscar")
+    @ApiOperation(value = "Busca todas as pessoas cadastradas no banco de dados.")
+    public ResponseEntity<List<PessoaVO>> buscar(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(this.pessoaService.buscarTodas());
+    }
+
+    @GetMapping("/buscar/{id}")
+    @ApiOperation(value = "Busca uma pessoa pelo ID informado.")
+    public ResponseEntity<PessoaVO> buscarPorId(@PathVariable("id") Long id){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(this.pessoaService.buscarPorId(id));
+    }
 
 
 }

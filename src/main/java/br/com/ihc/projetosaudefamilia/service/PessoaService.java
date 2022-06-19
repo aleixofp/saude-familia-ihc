@@ -11,6 +11,7 @@ import br.com.ihc.projetosaudefamilia.vo.PessoaVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -67,5 +68,14 @@ public class PessoaService {
         pessoa.setEnderecoResidencia(endereco);
         endereco.setPessoaResidente(pessoa);
         this.pessoaRepository.save(pessoa);
+    }
+
+    public List<PessoaVO> buscarTodas() {
+        return this.pessoaMapper.map(this.pessoaRepository.findAll());
+    }
+
+    public PessoaVO buscarPorId(Long id){
+        var pessoaOpt = this.pessoaRepository.findById(id);
+        return pessoaOpt.map(pessoa -> this.pessoaMapper.map(pessoa)).orElse(null);
     }
 }
