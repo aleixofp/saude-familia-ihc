@@ -20,7 +20,7 @@ public class PessoaController {
     private PessoaService pessoaService;
 
     @GetMapping("/validar-cpf/{cpf}")
-    @ApiOperation(value = "Valida o CPF informado. A validação é em duas etapas: primeiro valida se o CPF está correto, utilizando do algoritmo; e em segundo valida se o CPF já foi cadastrado para uma outra pessoa.", response = Boolean.class)
+    @ApiOperation(value = "A validação é feita em duas etapas: primeiro valida se o CPF está correto, utilizando do algoritmo; e em segundo valida se o CPF já foi cadastrado para uma outra pessoa.")
     public ResponseEntity<Boolean> validarCpf(@PathVariable("cpf") String cpf){
         var result = this.cpfService.validarCpf(cpf) && !this.pessoaService.existePessoaComCpf(cpf);
         return ResponseEntity
@@ -28,6 +28,7 @@ public class PessoaController {
     }
 
     @PostMapping("/salvar")
+    @ApiOperation(value = "Se enviar o ID, atualizará o dado no banco de dados. Se não enviar o ID, criará um novo registro.")
     public ResponseEntity<?> salvar(@RequestBody PessoaVO pessoaVO){
         this.pessoaService.salvar(pessoaVO);
         return ResponseEntity

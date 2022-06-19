@@ -32,6 +32,9 @@ public class Pessoa {
     @JoinColumn(name = "id_endereco_residencia")
     private Endereco enderecoResidencia;
 
+    @Column(name = "dtype", insertable = false, updatable = false)
+    private String tipo;
+
     public Pessoa(){
 
     }
@@ -94,5 +97,9 @@ public class Pessoa {
 
     public void setEnderecoResidencia(Endereco enderecoResidencia) {
         this.enderecoResidencia = enderecoResidencia;
+    }
+
+    public String getTipo() {
+        return tipo;
     }
 }

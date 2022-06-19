@@ -2,6 +2,7 @@ package br.com.ihc.projetosaudefamilia.service;
 
 import br.com.ihc.projetosaudefamilia.entity.EquipeMedica;
 import br.com.ihc.projetosaudefamilia.entity.Medico;
+import br.com.ihc.projetosaudefamilia.mapper.EquipeMedicaMapper;
 import br.com.ihc.projetosaudefamilia.repository.EquipeMedicaRepository;
 import br.com.ihc.projetosaudefamilia.vo.CriarEquipeMedicaRequestVO;
 import br.com.ihc.projetosaudefamilia.vo.EquipeMedicaCompletaVO;
@@ -19,6 +20,9 @@ public class EquipeMedicaService {
     @Autowired
     private EquipeMedicaRepository equipeMedicaRepository;
 
+    @Autowired
+    private EquipeMedicaMapper equipeMedicaMapper;
+
     public void criar(CriarEquipeMedicaRequestVO request) {
         var equipeMedica = new EquipeMedica();
         equipeMedica.setMedicos(request.getIdsMedicos().stream().map(Medico::new).collect(Collectors.toList()));
@@ -27,43 +31,13 @@ public class EquipeMedicaService {
     }
 
     public List<EquipeMedicaCompletaVO> buscarEquipesPorIdMedico(Long idMedico) {
-        return equipeMedicaRepository.findAllByMedicoId(idMedico).stream()
-                .map(em -> {
-                    var equipeMedicaCompletaVO = new EquipeMedicaCompletaVO();
-                    equipeMedicaCompletaVO.setId(em.getId());
-                    equipeMedicaCompletaVO.setRegiao(em.getRegiao());
-                    equipeMedicaCompletaVO.setMedicos(em.getMedicos().stream().map(m -> {
-                        var medicoVO = new PessoaVO();
-                        medicoVO.setId(m.getId());
-                        medicoVO.setNome(m.getNome());
-                        medicoVO.setCpf(m.getCpf());
-                        medicoVO.setEmail(m.getEmail());
-                        medicoVO.setDataNascimento(m.getDataNascimento());
-                        medicoVO.setTelefone(m.getTelefoneContato());
-                        return medicoVO;
-                    }).collect(Collectors.toList()));
-                    return equipeMedicaCompletaVO;
-                }).collect(Collectors.toList());
+        var retorno = equipeMedicaRepository.findAllByMedicoId(idMedico);
+        return this.equipeMedicaMapper.map(retorno);
     }
 
     public List<EquipeMedicaCompletaVO> buscarEquipesPorRegiao(String regiao) {
-        return equipeMedicaRepository.findAllByRegiao(regiao.toUpperCase()).stream()
-                .map(em -> {
-                    var equipeMedicaCompletaVO = new EquipeMedicaCompletaVO();
-                    equipeMedicaCompletaVO.setId(em.getId());
-                    equipeMedicaCompletaVO.setRegiao(em.getRegiao());
-                    equipeMedicaCompletaVO.setMedicos(em.getMedicos().stream().map(m -> {
-                        var medicoVO = new PessoaVO();
-                        medicoVO.setId(m.getId());
-                        medicoVO.setNome(m.getNome());
-                        medicoVO.setCpf(m.getCpf());
-                        medicoVO.setEmail(m.getEmail());
-                        medicoVO.setDataNascimento(m.getDataNascimento());
-                        medicoVO.setTelefone(m.getTelefoneContato());
-                        return medicoVO;
-                    }).collect(Collectors.toList()));
-                    return equipeMedicaCompletaVO;
-                }).collect(Collectors.toList());
+        var retorno = equipeMedicaRepository.findAllByRegiao(regiao.toUpperCase());
+        return this.equipeMedicaMapper.map(retorno);
     }
 
 }
