@@ -63,11 +63,17 @@ public class CPFService {
     }
 
     public String retirarMascara(String cpf){
+        if (cpf == null || cpf.isEmpty())
+            return "";
         return cpf.replaceAll("-", "")
                 .replaceAll("\\.", "");
     }
 
     public String colocarMascara(String cpf){
+
+        if (cpf == null || cpf.isEmpty())
+            return "";
+
         cpf = this.retirarMascara(cpf);
         return String.format("%s.%s.%s-%s", cpf.substring(0, 3),
                 cpf.substring(3, 6),

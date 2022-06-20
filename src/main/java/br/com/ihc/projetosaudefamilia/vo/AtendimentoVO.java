@@ -1,19 +1,20 @@
 package br.com.ihc.projetosaudefamilia.vo;
 
+import br.com.ihc.projetosaudefamilia.enums.TipoAtendimentoEnum;
+
 import java.util.Date;
 
 public class AtendimentoVO {
-
-    private String tipoAtendimento;
+    private TipoAtendimentoEnum tipoAtendimento;
     private Date dataAtendimento;
     private Long idPaciente;
     private Long idMedico;
 
-    public String getTipoAtendimento() {
+    public TipoAtendimentoEnum getTipoAtendimento() {
         return tipoAtendimento;
     }
 
-    public void setTipoAtendimento(String tipoAtendimento) {
+    public void setTipoAtendimento(TipoAtendimentoEnum tipoAtendimento) {
         this.tipoAtendimento = tipoAtendimento;
     }
 

@@ -41,7 +41,6 @@ public class AtendimentoService {
                 .map(atendimento -> {
                     var atendimentoCompleto = new AtendimentoCompletoVO();
                     atendimentoCompleto.setId(atendimento.getId());
-                    atendimentoCompleto.setTipoAtendimento(atendimento.getTipoAtendimento());
                     atendimentoCompleto.setDataAtendimento(atendimento.getDataAtendimento());
                     atendimentoCompleto.setNomeMedico(atendimento.getMedico().getNome());
                     atendimentoCompleto.setNomePaciente(atendimento.getPaciente().getNome());

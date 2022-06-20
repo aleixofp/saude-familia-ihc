@@ -2,11 +2,9 @@ package br.com.ihc.projetosaudefamilia.entity;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
-@Table(name = "pessoa")
-public class Pessoa {
+public abstract class Pessoa {
 
     @Id
     @SequenceGenerator(name = "pessoa_id_seq", sequenceName = "pessoa_id_seq", allocationSize = 1)

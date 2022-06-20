@@ -11,4 +11,6 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 
     List<Paciente> findByEnderecoResidenciaBairro(String bairro);
 
+    List<Paciente> findByNomeOrCpf(String nome, String cpf);
+
 }

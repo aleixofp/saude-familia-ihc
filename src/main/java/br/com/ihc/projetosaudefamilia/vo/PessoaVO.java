@@ -15,8 +15,6 @@ public class PessoaVO {
     private EnderecoVO endereco;
     private String telefone;
 
-    private String perfil;
-
     public String getNome() {
         return nome;
     }
@@ -63,14 +61,6 @@ public class PessoaVO {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }
-
-    public String getPerfil() {
-        return perfil;
-    }
-
-    public void setPerfil(String perfil) {
-        this.perfil = perfil;
     }
 
     public Long getId() {

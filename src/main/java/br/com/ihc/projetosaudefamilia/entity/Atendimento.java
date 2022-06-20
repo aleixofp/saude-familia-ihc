@@ -1,5 +1,7 @@
 package br.com.ihc.projetosaudefamilia.entity;
 
+import br.com.ihc.projetosaudefamilia.enums.TipoAtendimentoEnum;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,7 +15,8 @@ public class Atendimento {
     private Long id;
 
     @Column(name = "tipo_atendimento")
-    private String tipoAtendimento;
+    @Enumerated(EnumType.STRING)
+    private TipoAtendimentoEnum tipoAtendimento;
 
     @Column(name = "dt_atendimento")
     private Date dataAtendimento;
@@ -34,11 +37,11 @@ public class Atendimento {
         this.id = id;
     }
 
-    public String getTipoAtendimento() {
+    public TipoAtendimentoEnum getTipoAtendimento() {
         return tipoAtendimento;
     }
 
-    public void setTipoAtendimento(String tipoAtendimento) {
+    public void setTipoAtendimento(TipoAtendimentoEnum tipoAtendimento) {
         this.tipoAtendimento = tipoAtendimento;
     }
 

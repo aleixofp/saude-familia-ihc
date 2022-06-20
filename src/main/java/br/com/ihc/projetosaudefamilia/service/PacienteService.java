@@ -1,10 +1,10 @@
 package br.com.ihc.projetosaudefamilia.service;
 
-import br.com.ihc.projetosaudefamilia.mapper.EnderecoMapper;
-import br.com.ihc.projetosaudefamilia.mapper.PessoaMapper;
+import br.com.ihc.projetosaudefamilia.exception.PessoaNaoEncontradaException;
+import br.com.ihc.projetosaudefamilia.mapper.PacienteMapper;
 import br.com.ihc.projetosaudefamilia.repository.PacienteRepository;
-import br.com.ihc.projetosaudefamilia.vo.EnderecoVO;
-import br.com.ihc.projetosaudefamilia.vo.PessoaVO;
+import br.com.ihc.projetosaudefamilia.vo.FiltroListaPessoaVO;
+import br.com.ihc.projetosaudefamilia.vo.PacienteVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,35 +18,39 @@ public class PacienteService {
     private PacienteRepository pacienteRepository;
 
     @Autowired
-    private PessoaMapper pessoaMapper;
+    private PacienteMapper pacienteMapper;
 
     @Autowired
-    private EnderecoMapper enderecoMapper;
+    private CPFService cpfService;
 
-    public List<PessoaVO> listarPorRegiao(String regiao) {
+    public List<PacienteVO> listarPorRegiao(String regiao) {
         var pacientesNaRegiao = pacienteRepository.findByEnderecoResidenciaBairro(regiao);
-        return pacientesNaRegiao.stream().map(paciente -> {
-            var pessoa = this.pessoaMapper.map(paciente);
-            var endereco = this.enderecoMapper.map(paciente.getEnderecoResidencia());
-
-            pessoa.setEndereco(endereco);
-
-            return pessoa;
-        }).collect(Collectors.toList());
+        return pacientesNaRegiao.stream().map(paciente -> this.pacienteMapper.map(paciente)).collect(Collectors.toList());
     }
 
-    public PessoaVO buscarPorId(Long id) {
+    public PacienteVO buscarPorId(Long id) {
         var paciente = pacienteRepository.findById(id).orElse(null);
+        return paciente != null ? this.pacienteMapper.map(paciente) : null;
+    }
 
+    public PacienteVO salvar(PacienteVO pacienteVO) {
+        var paciente = this.pacienteMapper.map(pacienteVO);
+        paciente = pacienteRepository.save(paciente);
+        return this.pacienteMapper.map(paciente);
+    }
+
+    public PacienteVO atualizar(PacienteVO pacienteVO) throws PessoaNaoEncontradaException {
+        var paciente = this.pacienteRepository.findById(pacienteVO.getId()).orElse(null);
         if (paciente != null) {
-            var pessoa = this.pessoaMapper.map(paciente);
-            var endereco = this.enderecoMapper.map(paciente.getEnderecoResidencia());
-
-            pessoa.setEndereco(endereco);
-
-            return pessoa;
+            var pessoa = this.pacienteMapper.map(pacienteVO);
+            return pacienteMapper.map(this.pacienteRepository.save(pessoa));
         } else {
-            return null;
+            throw new PessoaNaoEncontradaException(String.format("Paciente ID %d não encontrado", pacienteVO.getId()));
         }
+    }
+
+    public List<PacienteVO> listar(FiltroListaPessoaVO filtro) {
+        var pacientes = this.pacienteRepository.findByNomeOrCpf(filtro.getNome(), cpfService.retirarMascara(filtro.getCpf()));
+        return pacienteMapper.mapToListVO(pacientes);
     }
 }

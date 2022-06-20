@@ -2,14 +2,13 @@ package br.com.ihc.projetosaudefamilia.controller;
 
 import br.com.ihc.projetosaudefamilia.service.CPFService;
 import br.com.ihc.projetosaudefamilia.service.PessoaService;
-import br.com.ihc.projetosaudefamilia.vo.PessoaVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("pessoa")
@@ -28,31 +27,5 @@ public class PessoaController {
         return ResponseEntity
                 .ok(result);
     }
-
-    @PostMapping("/salvar")
-    @ApiOperation(value = "Se enviar o ID, atualizará o dado no banco de dados. Se não enviar o ID, criará um novo registro.")
-    public ResponseEntity<?> salvar(@RequestBody PessoaVO pessoaVO){
-        this.pessoaService.salvar(pessoaVO);
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .build();
-    }
-
-    @GetMapping("/buscar")
-    @ApiOperation(value = "Busca todas as pessoas cadastradas no banco de dados.")
-    public ResponseEntity<List<PessoaVO>> buscar(){
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(this.pessoaService.buscarTodas());
-    }
-
-    @GetMapping("/buscar/{id}")
-    @ApiOperation(value = "Busca uma pessoa pelo ID informado.")
-    public ResponseEntity<PessoaVO> buscarPorId(@PathVariable("id") Long id){
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(this.pessoaService.buscarPorId(id));
-    }
-
 
 }
