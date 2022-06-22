@@ -48,4 +48,8 @@ public class MedicoService {
         return medicoMapper.mapToListVO(pacientes);
     }
 
+    public List<MedicoVO> listarTodos() {
+        var medicos = this.medicoRepository.findAll();
+        return medicoMapper.mapToListVO(medicos);
+    }
 }

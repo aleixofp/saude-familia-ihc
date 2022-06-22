@@ -53,4 +53,9 @@ public class PacienteService {
         var pacientes = this.pacienteRepository.findByNomeOrCpf(filtro.getNome(), cpfService.retirarMascara(filtro.getCpf()));
         return pacienteMapper.mapToListVO(pacientes);
     }
+
+    public List<PacienteVO> listarTodos() {
+        var pacientes = this.pacienteRepository.findAll();
+        return pacienteMapper.mapToListVO(pacientes);
+    }
 }

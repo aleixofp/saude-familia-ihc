@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EnderecoVO {
 
+    private Long id;
     private String cep;
     private String logradouro;
     private String complemento;
@@ -70,4 +71,11 @@ public class EnderecoVO {
         this.numero = numero;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

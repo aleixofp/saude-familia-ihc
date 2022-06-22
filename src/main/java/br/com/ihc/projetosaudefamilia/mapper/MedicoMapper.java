@@ -23,6 +23,7 @@ public class MedicoMapper {
         medico.setDataNascimento(medicoVO.getDataNascimento());
         medico.setTelefoneContato(medicoVO.getTelefone());
         medico.setEnderecoResidencia( enderecoMapper.map(medicoVO.getEndereco()) );
+        medico.setSenha(medicoVO.getSenha());
         return medico;
     }
 
@@ -42,6 +43,7 @@ public class MedicoMapper {
         medicoVO.setDataNascimento(medico.getDataNascimento());
         medicoVO.setTelefone(medico.getTelefoneContato());
         medicoVO.setEndereco( enderecoMapper.map(medico.getEnderecoResidencia()) );
+        medicoVO.setSenha(medico.getSenha());
         return medicoVO;
     }
 

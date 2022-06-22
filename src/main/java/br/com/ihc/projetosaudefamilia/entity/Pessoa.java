@@ -30,8 +30,8 @@ public abstract class Pessoa {
     @JoinColumn(name = "id_endereco_residencia")
     private Endereco enderecoResidencia;
 
-    @Column(name = "dtype", insertable = false, updatable = false)
-    private String tipo;
+    @Column(name = "senha")
+    private String senha;
 
     public Pessoa(){
 
@@ -97,7 +97,11 @@ public abstract class Pessoa {
         this.enderecoResidencia = enderecoResidencia;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }

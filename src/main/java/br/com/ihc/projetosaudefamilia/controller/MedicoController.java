@@ -4,7 +4,6 @@ import br.com.ihc.projetosaudefamilia.exception.PessoaNaoEncontradaException;
 import br.com.ihc.projetosaudefamilia.service.MedicoService;
 import br.com.ihc.projetosaudefamilia.vo.FiltroListaPessoaVO;
 import br.com.ihc.projetosaudefamilia.vo.MedicoVO;
-import br.com.ihc.projetosaudefamilia.vo.PacienteVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,4 +48,10 @@ public class MedicoController {
                 .body(this.medicoService.listar(filtro));
     }
 
+    @GetMapping("/listar-todos")
+    public ResponseEntity<List<MedicoVO>> listarTodos() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(this.medicoService.listarTodos());
+    }
 }

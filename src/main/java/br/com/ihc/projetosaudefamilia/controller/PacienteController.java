@@ -55,4 +55,11 @@ public class PacienteController {
                 .body(this.pacienteService.listar(filtro));
     }
 
+    @GetMapping("/listar-todos")
+    public ResponseEntity<List<PacienteVO>> listarTodos(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(this.pacienteService.listarTodos());
+    }
+
 }

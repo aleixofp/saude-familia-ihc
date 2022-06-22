@@ -9,6 +9,7 @@ public class EnderecoMapper {
 
     public Endereco map(EnderecoVO enderecoVO) {
         var endereco = new Endereco();
+        endereco.setId(enderecoVO.getId());
         endereco.setBairro( enderecoVO.getBairro() );
         endereco.setCep( enderecoVO.getCep() );
         endereco.setCidade( enderecoVO.getLocalidade() );
@@ -21,6 +22,7 @@ public class EnderecoMapper {
 
     public EnderecoVO map(Endereco endereco) {
         var enderecoVO = new EnderecoVO();
+        enderecoVO.setId(endereco.getId());
         enderecoVO.setBairro(endereco.getBairro());
         enderecoVO.setCep(endereco.getCep());
         enderecoVO.setLocalidade(endereco.getCidade());
