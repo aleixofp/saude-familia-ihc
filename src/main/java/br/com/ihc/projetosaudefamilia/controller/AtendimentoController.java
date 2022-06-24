@@ -8,10 +8,7 @@ import br.com.ihc.projetosaudefamilia.vo.AtendimentoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,17 +21,100 @@ public class AtendimentoController {
 
     @PostMapping("/salvar")
     public ResponseEntity<?> salvar(@RequestBody AtendimentoVO request){
-        this.atendimentoService.salvar(request);
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .build();
+        try {
+            var result = this.atendimentoService.salvar(request);
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(result);
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.getMessage());
+        }
     }
 
-    @PostMapping("/buscar")
-    public ResponseEntity<List<AtendimentoCompletoVO>> buscar(@RequestBody AtendimentoFiltroVO request){
+    @PutMapping("/atualizar")
+    public ResponseEntity<?> atualizar(@RequestBody AtendimentoVO request){
+        try {
+            var result = this.atendimentoService.atualizar(request);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(result);
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.getMessage());
+        }
+
+    }
+
+    @GetMapping("/buscar-por-id/{id}")
+    public ResponseEntity<?> buscarPorId(@PathVariable("id") Long id){
+        try {
+            var result = this.atendimentoService.buscarPorId(id);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(result);
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/buscar-por-medico/{id}")
+    public ResponseEntity<?> buscarPorMedico(@PathVariable("id") Long id){
+        try {
+            var result = this.atendimentoService.buscarAtendimentosPorMedicoId(id);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(result);
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/buscar-por-paciente/{id}")
+    public ResponseEntity<?> buscarPorPaciente(@PathVariable("id") Long id){
+        try {
+            var result = this.atendimentoService.buscarAtendimentosPorPacienteId(id);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(result);
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/listar-todos")
+    public ResponseEntity<List<AtendimentoCompletoVO>> buscar(){
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(this.atendimentoService.listar(request));
+                .body(this.atendimentoService.listar());
+    }
+
+    @DeleteMapping("/excluir/{id}")
+    public ResponseEntity<?> excluir(@PathVariable("id") Long id){
+        try {
+            this.atendimentoService.excluir(id);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .build();
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .build();
+        }
+
     }
 
 }

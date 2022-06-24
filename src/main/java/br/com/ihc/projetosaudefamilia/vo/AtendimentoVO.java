@@ -1,22 +1,16 @@
 package br.com.ihc.projetosaudefamilia.vo;
 
-import br.com.ihc.projetosaudefamilia.enums.TipoAtendimentoEnum;
-
 import java.util.Date;
 
 public class AtendimentoVO {
-    private TipoAtendimentoEnum tipoAtendimento;
+
+    private Long id;
+    private String condicoesSocioeconomicas;
+    private String estadoAtualPaciente;
+    private boolean empregado;
     private Date dataAtendimento;
     private Long idPaciente;
     private Long idMedico;
-
-    public TipoAtendimentoEnum getTipoAtendimento() {
-        return tipoAtendimento;
-    }
-
-    public void setTipoAtendimento(TipoAtendimentoEnum tipoAtendimento) {
-        this.tipoAtendimento = tipoAtendimento;
-    }
 
     public Date getDataAtendimento() {
         return dataAtendimento;
@@ -40,5 +34,37 @@ public class AtendimentoVO {
 
     public void setIdMedico(Long idMedico) {
         this.idMedico = idMedico;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCondicoesSocioeconomicas() {
+        return condicoesSocioeconomicas;
+    }
+
+    public void setCondicoesSocioeconomicas(String condicoesSocioeconomicas) {
+        this.condicoesSocioeconomicas = condicoesSocioeconomicas;
+    }
+
+    public String getEstadoAtualPaciente() {
+        return estadoAtualPaciente;
+    }
+
+    public void setEstadoAtualPaciente(String estadoAtualPaciente) {
+        this.estadoAtualPaciente = estadoAtualPaciente;
+    }
+
+    public boolean isEmpregado() {
+        return empregado;
+    }
+
+    public void setEmpregado(boolean empregado) {
+        this.empregado = empregado;
     }
 }

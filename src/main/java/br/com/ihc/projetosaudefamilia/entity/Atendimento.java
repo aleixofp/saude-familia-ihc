@@ -14,12 +14,22 @@ public class Atendimento {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "atendimento_id_seq")
     private Long id;
 
-    @Column(name = "tipo_atendimento")
-    @Enumerated(EnumType.STRING)
-    private TipoAtendimentoEnum tipoAtendimento;
-
     @Column(name = "dt_atendimento")
+    @Temporal(TemporalType.DATE)
     private Date dataAtendimento;
+
+    @Column(name = "dt_criacao")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataCriacao;
+
+    @Column(name = "condicoes_socioeconomicas")
+    private String condicoesSocioeconomicas;
+
+    @Column(name = "estado_atual_paciente")
+    private String estadoAtualPaciente;
+
+    @Column(name = "is_empregado")
+    private boolean empregado;
 
     @OneToOne
     @JoinColumn(name = "id_paciente")
@@ -35,14 +45,6 @@ public class Atendimento {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public TipoAtendimentoEnum getTipoAtendimento() {
-        return tipoAtendimento;
-    }
-
-    public void setTipoAtendimento(TipoAtendimentoEnum tipoAtendimento) {
-        this.tipoAtendimento = tipoAtendimento;
     }
 
     public Date getDataAtendimento() {
@@ -67,5 +69,37 @@ public class Atendimento {
 
     public void setMedico(Medico medico) {
         this.medico = medico;
+    }
+
+    public Date getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public String getCondicoesSocioeconomicas() {
+        return condicoesSocioeconomicas;
+    }
+
+    public void setCondicoesSocioeconomicas(String condicoesSocioeconomicas) {
+        this.condicoesSocioeconomicas = condicoesSocioeconomicas;
+    }
+
+    public String getEstadoAtualPaciente() {
+        return estadoAtualPaciente;
+    }
+
+    public void setEstadoAtualPaciente(String estadoAtualPaciente) {
+        this.estadoAtualPaciente = estadoAtualPaciente;
+    }
+
+    public boolean isEmpregado() {
+        return empregado;
+    }
+
+    public void setEmpregado(boolean empregado) {
+        this.empregado = empregado;
     }
 }

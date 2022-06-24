@@ -62,4 +62,20 @@ public class PacienteController {
                 .body(this.pacienteService.listarTodos());
     }
 
+    @DeleteMapping("/excluir/{id}")
+    public ResponseEntity<?> excluir(@PathVariable("id") Long id){
+        try {
+            this.pacienteService.excluir(id);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .build();
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .build();
+        }
+
+    }
+
 }

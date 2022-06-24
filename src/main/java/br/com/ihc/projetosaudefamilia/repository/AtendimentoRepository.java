@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface AtendimentoRepository extends JpaRepository<Atendimento, Long> {
 
-    List<Atendimento> findAllByTipoAtendimento(String tipoAtendimento);
+    List<Atendimento> findByMedicoId(Long idMedico);
 
-
+    List<Atendimento> findByPacienteId(Long idPaciente);
 }

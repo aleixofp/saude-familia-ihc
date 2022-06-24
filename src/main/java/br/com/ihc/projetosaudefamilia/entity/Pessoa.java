@@ -33,6 +33,10 @@ public abstract class Pessoa {
     @Column(name = "senha")
     private String senha;
 
+    @Column(name = "dt_criacao")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataCriacao = new Date();
+
     public Pessoa(){
 
     }
@@ -103,5 +107,13 @@ public abstract class Pessoa {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Date getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 }

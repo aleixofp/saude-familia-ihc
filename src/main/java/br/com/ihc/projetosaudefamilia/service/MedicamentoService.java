@@ -20,10 +20,9 @@ public class MedicamentoService {
 
     public List<MedicamentoVO> listar() throws IOException {
         try {
-            File file = ResourceUtils.getFile("classpath:medicamentos.json");
-
-            try (InputStream is = new FileInputStream(file)){
-                var medsArr = new ObjectMapper().readValue(is.readAllBytes(), MedicamentoJsonVO[].class);
+            ClassLoader cl = this.getClass().getClassLoader();
+            try (InputStream inputStream = cl.getResourceAsStream("src/main/resources/medicamentos.json")) {
+                var medsArr = new ObjectMapper().readValue(inputStream.readAllBytes(), MedicamentoJsonVO[].class);
                 var medsJson = Arrays.asList(medsArr);
 
                 return medsJson

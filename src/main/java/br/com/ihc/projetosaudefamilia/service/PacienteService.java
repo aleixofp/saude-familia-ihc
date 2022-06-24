@@ -58,4 +58,8 @@ public class PacienteService {
         var pacientes = this.pacienteRepository.findAll();
         return pacienteMapper.mapToListVO(pacientes);
     }
+
+    public void excluir(Long id) {
+        this.pacienteRepository.deleteById(id);
+    }
 }
