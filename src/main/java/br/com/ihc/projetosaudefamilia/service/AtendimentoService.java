@@ -5,6 +5,7 @@ import br.com.ihc.projetosaudefamilia.entity.Medicamento;
 import br.com.ihc.projetosaudefamilia.entity.Medico;
 import br.com.ihc.projetosaudefamilia.entity.Paciente;
 import br.com.ihc.projetosaudefamilia.repository.AtendimentoRepository;
+import br.com.ihc.projetosaudefamilia.repository.MedicamentoRepository;
 import br.com.ihc.projetosaudefamilia.vo.AtendimentoCompletoVO;
 import br.com.ihc.projetosaudefamilia.vo.AtendimentoFiltroVO;
 import br.com.ihc.projetosaudefamilia.vo.AtendimentoVO;
@@ -23,6 +24,9 @@ public class AtendimentoService {
     @Autowired
     private AtendimentoRepository atendimentoRepository;
 
+    @Autowired
+    private MedicamentoRepository medicamentoRepository;
+
     public AtendimentoCompletoVO salvar(AtendimentoVO request) {
         var atendimento = new Atendimento();
         atendimento.setEmpregado(request.isEmpregado());
@@ -33,7 +37,10 @@ public class AtendimentoService {
         atendimento.setPaciente(new Paciente(request.getIdPaciente()));
 
         for (Long idM : request.getIdsMedicamentosAdministrados()) {
-            atendimento.getMedicamentosAdministrados().add(new Medicamento(idM));
+            var m = this.medicamentoRepository.findById(idM).orElse(null);
+            if (m != null) {
+                atendimento.getMedicamentosAdministrados().add(m);
+            }
         }
 
         atendimento = this.atendimentoRepository.save(atendimento);
@@ -95,7 +102,10 @@ public class AtendimentoService {
 
             atendimento.setMedicamentosAdministrados(new ArrayList<>());
             for (Long idM : request.getIdsMedicamentosAdministrados()) {
-                atendimento.getMedicamentosAdministrados().add(new Medicamento(idM));
+                var m = this.medicamentoRepository.findById(idM).orElse(null);
+                if (m != null) {
+                    atendimento.getMedicamentosAdministrados().add(m);
+                }
             }
 
             atendimento = this.atendimentoRepository.save(atendimento);
