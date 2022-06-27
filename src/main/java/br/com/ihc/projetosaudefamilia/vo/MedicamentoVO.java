@@ -4,6 +4,7 @@ import java.util.List;
 
 public class MedicamentoVO {
 
+    private Long id;
     private List<String> principiosAtivos;
     private String nome;
     private String classeTerapeutica;
@@ -30,5 +31,13 @@ public class MedicamentoVO {
 
     public void setClasseTerapeutica(String classeTerapeutica) {
         this.classeTerapeutica = classeTerapeutica;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

@@ -1,16 +1,19 @@
 package br.com.ihc.projetosaudefamilia.service;
 
 import br.com.ihc.projetosaudefamilia.entity.Atendimento;
+import br.com.ihc.projetosaudefamilia.entity.Medicamento;
 import br.com.ihc.projetosaudefamilia.entity.Medico;
 import br.com.ihc.projetosaudefamilia.entity.Paciente;
 import br.com.ihc.projetosaudefamilia.repository.AtendimentoRepository;
 import br.com.ihc.projetosaudefamilia.vo.AtendimentoCompletoVO;
 import br.com.ihc.projetosaudefamilia.vo.AtendimentoFiltroVO;
 import br.com.ihc.projetosaudefamilia.vo.AtendimentoVO;
+import br.com.ihc.projetosaudefamilia.vo.MedicamentoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +31,11 @@ public class AtendimentoService {
         atendimento.setDataAtendimento(request.getDataAtendimento());
         atendimento.setMedico(new Medico(request.getIdMedico()));
         atendimento.setPaciente(new Paciente(request.getIdPaciente()));
+
+        for (Long idM : request.getIdsMedicamentosAdministrados()) {
+            atendimento.getMedicamentosAdministrados().add(new Medicamento(idM));
+        }
+
         atendimento = this.atendimentoRepository.save(atendimento);
 
         return this.mapAtendimentoToAtendimentoCompletoVO(atendimento);
@@ -54,6 +62,19 @@ public class AtendimentoService {
         atendimentoCompleto.setNomePaciente(atendimento.getPaciente().getNome());
         atendimentoCompleto.setIdMedico(atendimento.getMedico().getId());
         atendimentoCompleto.setIdPaciente(atendimento.getPaciente().getId());
+
+        atendimentoCompleto.setMedicamentos(atendimento.getMedicamentosAdministrados()
+                .stream()
+                .map(m -> {
+                    var mVO = new MedicamentoVO();
+                    mVO.setNome(m.getProduto());
+                    mVO.setClasseTerapeutica(m.getClasseTerapeutica());
+                    mVO.setPrincipiosAtivos(Arrays.stream(m.getPrincipioAtivo().split(";")).toList());
+                    mVO.setId(m.getId());
+                    return mVO;
+                })
+                .collect(Collectors.toList()));
+
         return atendimentoCompleto;
     }
 

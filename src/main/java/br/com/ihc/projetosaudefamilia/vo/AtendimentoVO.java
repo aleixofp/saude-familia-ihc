@@ -1,6 +1,8 @@
 package br.com.ihc.projetosaudefamilia.vo;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class AtendimentoVO {
 
@@ -11,6 +13,8 @@ public class AtendimentoVO {
     private Date dataAtendimento;
     private Long idPaciente;
     private Long idMedico;
+
+    private List<Long> idsMedicamentosAdministrados = new ArrayList<>();
 
     public Date getDataAtendimento() {
         return dataAtendimento;
@@ -66,5 +70,13 @@ public class AtendimentoVO {
 
     public void setEmpregado(boolean empregado) {
         this.empregado = empregado;
+    }
+
+    public List<Long> getIdsMedicamentosAdministrados() {
+        return idsMedicamentosAdministrados;
+    }
+
+    public void setIdsMedicamentosAdministrados(List<Long> idsMedicamentosAdministrados) {
+        this.idsMedicamentosAdministrados = idsMedicamentosAdministrados;
     }
 }

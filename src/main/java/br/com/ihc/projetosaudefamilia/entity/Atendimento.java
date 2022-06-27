@@ -4,6 +4,7 @@ import br.com.ihc.projetosaudefamilia.enums.TipoAtendimentoEnum;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "atendimento")
@@ -38,6 +39,12 @@ public class Atendimento {
     @OneToOne
     @JoinColumn(name = "id_medico")
     private Medico medico;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "atendimento_medicamento",
+            joinColumns = @JoinColumn(name = "id_atendimento"),
+            inverseJoinColumns = @JoinColumn(name = "id_medicamento"))
+    private List<Medicamento> medicamentosAdministrados;
 
     public Long getId() {
         return id;
@@ -101,5 +108,13 @@ public class Atendimento {
 
     public void setEmpregado(boolean empregado) {
         this.empregado = empregado;
+    }
+
+    public List<Medicamento> getMedicamentosAdministrados() {
+        return medicamentosAdministrados;
+    }
+
+    public void setMedicamentosAdministrados(List<Medicamento> medicamentosAdministrados) {
+        this.medicamentosAdministrados = medicamentosAdministrados;
     }
 }
