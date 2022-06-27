@@ -92,6 +92,12 @@ public class AtendimentoService {
             atendimento.setDataAtendimento(request.getDataAtendimento());
             atendimento.setMedico(new Medico(request.getIdMedico()));
             atendimento.setPaciente(new Paciente(request.getIdPaciente()));
+
+            atendimento.setMedicamentosAdministrados(new ArrayList<>());
+            for (Long idM : request.getIdsMedicamentosAdministrados()) {
+                atendimento.getMedicamentosAdministrados().add(new Medicamento(idM));
+            }
+
             atendimento = this.atendimentoRepository.save(atendimento);
             return this.mapAtendimentoToAtendimentoCompletoVO(atendimento);
         } else {

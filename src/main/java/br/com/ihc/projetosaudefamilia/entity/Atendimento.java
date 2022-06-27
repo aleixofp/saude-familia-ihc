@@ -3,6 +3,7 @@ package br.com.ihc.projetosaudefamilia.entity;
 import br.com.ihc.projetosaudefamilia.enums.TipoAtendimentoEnum;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class Atendimento {
     @JoinTable(name = "atendimento_medicamento",
             joinColumns = @JoinColumn(name = "id_atendimento"),
             inverseJoinColumns = @JoinColumn(name = "id_medicamento"))
-    private List<Medicamento> medicamentosAdministrados;
+    private List<Medicamento> medicamentosAdministrados = new ArrayList<>();
 
     public Long getId() {
         return id;
