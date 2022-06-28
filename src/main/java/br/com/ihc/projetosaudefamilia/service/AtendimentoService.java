@@ -13,6 +13,7 @@ import br.com.ihc.projetosaudefamilia.vo.MedicamentoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -64,7 +65,7 @@ public class AtendimentoService {
         atendimentoCompleto.setCondicoesSocioeconomicas(atendimento.getCondicoesSocioeconomicas());
         atendimentoCompleto.setEstadoAtualPaciente(atendimento.getEstadoAtualPaciente());
         atendimentoCompleto.setEmpregado(atendimento.isEmpregado());
-        atendimentoCompleto.setDataAtendimento(atendimento.getDataAtendimento());
+        atendimentoCompleto.setDataAtendimento(new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(atendimento.getDataAtendimento()));
         atendimentoCompleto.setNomeMedico(atendimento.getMedico().getNome());
         atendimentoCompleto.setNomePaciente(atendimento.getPaciente().getNome());
         atendimentoCompleto.setIdMedico(atendimento.getMedico().getId());
@@ -76,7 +77,9 @@ public class AtendimentoService {
                     var mVO = new MedicamentoVO();
                     mVO.setNome(m.getProduto());
                     mVO.setClasseTerapeutica(m.getClasseTerapeutica());
-                    mVO.setPrincipiosAtivos(Arrays.stream(m.getPrincipioAtivo().split(";")).toList());
+                    if (m.getPrincipioAtivo() != null){
+                        mVO.setPrincipiosAtivos(Arrays.stream(m.getPrincipioAtivo().split(";")).toList());
+                    }
                     mVO.setId(m.getId());
                     return mVO;
                 })
