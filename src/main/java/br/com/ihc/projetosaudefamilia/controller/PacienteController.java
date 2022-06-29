@@ -33,6 +33,11 @@ public class PacienteController {
                 .body(this.pacienteService.buscarPorId(id));
     }
 
+    @GetMapping("/buscar-atendidos-por-medico/{ìd-medico}")
+    public ResponseEntity<List<PacienteVO>> buscarAtendidosPorMedico(@PathVariable("id-medico") Long idMedico) {
+        return ResponseEntity.ok(this.pacienteService.buscarAtendidosPorMedico(idMedico));
+    }
+
     @PostMapping("/salvar")
     public ResponseEntity<PacienteVO> salvar(@RequestBody PacienteVO pacienteVO){
         return ResponseEntity

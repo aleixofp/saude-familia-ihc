@@ -62,4 +62,8 @@ public class PacienteService {
     public void excluir(Long id) {
         this.pacienteRepository.deleteById(id);
     }
+
+    public List<PacienteVO> buscarAtendidosPorMedico(Long idMedico) {
+        return pacienteRepository.buscarAtendidosPorIdMedico(idMedico).stream().map(paciente -> this.pacienteMapper.map(paciente)).collect(Collectors.toList());
+    }
 }

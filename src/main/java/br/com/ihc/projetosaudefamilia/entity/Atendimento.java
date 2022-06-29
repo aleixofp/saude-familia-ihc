@@ -33,11 +33,11 @@ public class Atendimento {
     @Column(name = "is_empregado")
     private boolean empregado;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_paciente")
     private Paciente paciente;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_medico")
     private Medico medico;
 
