@@ -14,7 +14,7 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 
     List<Paciente> findByNomeOrCpf(String nome, String cpf);
 
-    @Query("select p from Paciente p join p.atendimentos a where a.medico.id = :idMedico")
+    @Query("select distinct p from Paciente p join p.atendimentos a where a.medico.id = :idMedico order by a.dataAtendimento desc")
     List<Paciente> buscarAtendidosPorIdMedico(Long idMedico);
 
 }
