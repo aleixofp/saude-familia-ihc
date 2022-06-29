@@ -64,6 +64,9 @@ public class PacienteService {
     }
 
     public List<PacienteVO> buscarAtendidosPorMedico(Long idMedico) {
-        return pacienteRepository.buscarAtendidosPorIdMedico(idMedico).stream().map(paciente -> this.pacienteMapper.map(paciente)).collect(Collectors.toList());
+        return pacienteRepository.buscarAtendidosPorIdMedico(idMedico)
+                .stream()
+                .map(paciente -> this.pacienteMapper.map(paciente))
+                .collect(Collectors.toList());
     }
 }
