@@ -14,8 +14,9 @@ public class PessoaVO {
     private Date dataNascimento;
     private EnderecoVO endereco;
     private String telefone;
-
     private String senha;
+
+    private boolean isAtivo;
 
     public String getNome() {
         return nome;
@@ -79,5 +80,13 @@ public class PessoaVO {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public boolean isAtivo() {
+        return isAtivo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        isAtivo = ativo;
     }
 }

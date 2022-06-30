@@ -8,6 +8,8 @@ import br.com.ihc.projetosaudefamilia.vo.PessoaVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class PessoaService {
 
@@ -35,13 +37,18 @@ public class PessoaService {
         vo.setEmail(entity.getEmail());
         vo.setSenha(entity.getSenha());
         vo.setDataNascimento(entity.getDataNascimento());
-
         vo.setTelefone(entity.getTelefoneContato());
+        vo.setAtivo(entity.isAtivo());
 
         var enderecoVO = this.enderecoMapper.map(entity.getEnderecoResidencia());
         vo.setEndereco(enderecoVO);
 
         return vo;
 
+    }
+
+    @Transactional
+    public void ativarInativar(Long id) {
+        this.pessoaRepository.ativarInativar(id);
     }
 }

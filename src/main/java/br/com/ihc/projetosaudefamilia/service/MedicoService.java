@@ -59,10 +59,4 @@ public class MedicoService {
         var medicos = this.medicoRepository.findAll();
         return medicoMapper.mapToListVO(medicos);
     }
-
-    public void excluir(Long id) {
-        this.enderecoRepository.deleteByPessoaResidenteId(id);
-        this.atendimentoRepository.deleteByMedicoId(id);
-        this.medicoRepository.deleteById(id);
-    }
 }

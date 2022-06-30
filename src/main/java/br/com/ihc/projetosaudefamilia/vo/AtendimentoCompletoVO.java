@@ -14,8 +14,9 @@ public class AtendimentoCompletoVO {
     private Long idMedico;
     private String nomePaciente;
     private String nomeMedico;
-
     private List<MedicamentoVO> medicamentos;
+
+    private boolean isAtivo;
 
     public String getNomePaciente() {
         return nomePaciente;
@@ -95,5 +96,13 @@ public class AtendimentoCompletoVO {
 
     public void setIdMedico(Long idMedico) {
         this.idMedico = idMedico;
+    }
+
+    public boolean isAtivo() {
+        return isAtivo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        isAtivo = ativo;
     }
 }

@@ -67,12 +67,6 @@ public class PacienteService {
         return pacienteMapper.mapToListVO(pacientes);
     }
 
-    public void excluir(Long id) {
-        this.enderecoRepository.deleteByPessoaResidenteId(id);
-        this.atendimentoRepository.deleteByPacienteId(id);
-        this.pacienteRepository.deleteById(id);
-    }
-
     public List<PacienteVO> buscarAtendidosPorMedico(Long idMedico) {
         return pacienteRepository.buscarAtendidosPorIdMedico(idMedico)
                 .stream()

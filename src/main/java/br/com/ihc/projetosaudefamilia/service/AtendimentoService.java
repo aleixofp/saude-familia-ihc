@@ -13,6 +13,7 @@ import br.com.ihc.projetosaudefamilia.vo.MedicamentoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,6 +37,7 @@ public class AtendimentoService {
         atendimento.setDataAtendimento(request.getDataAtendimento());
         atendimento.setMedico(new Medico(request.getIdMedico()));
         atendimento.setPaciente(new Paciente(request.getIdPaciente()));
+        atendimento.setAtivo(true);
 
         for (Long idM : request.getIdsMedicamentosAdministrados()) {
             var m = this.medicamentoRepository.findById(idM).orElse(null);
@@ -70,6 +72,7 @@ public class AtendimentoService {
         atendimentoCompleto.setNomePaciente(atendimento.getPaciente().getNome());
         atendimentoCompleto.setIdMedico(atendimento.getMedico().getId());
         atendimentoCompleto.setIdPaciente(atendimento.getPaciente().getId());
+        atendimentoCompleto.setAtivo(atendimento.isAtivo());
 
         atendimentoCompleto.setMedicamentos(atendimento.getMedicamentosAdministrados()
                 .stream()
@@ -88,10 +91,6 @@ public class AtendimentoService {
         return atendimentoCompleto;
     }
 
-    public void excluir(Long id) {
-        this.atendimentoRepository.deleteById(id);
-    }
-
     public AtendimentoCompletoVO atualizar(AtendimentoVO request) {
         var atendimentoOpt = this.atendimentoRepository.findById(request.getId());
         if (atendimentoOpt.isPresent()){
@@ -102,6 +101,7 @@ public class AtendimentoService {
             atendimento.setDataAtendimento(request.getDataAtendimento());
             atendimento.setMedico(new Medico(request.getIdMedico()));
             atendimento.setPaciente(new Paciente(request.getIdPaciente()));
+            atendimento.setAtivo(true);
 
             atendimento.setMedicamentosAdministrados(new ArrayList<>());
             for (Long idM : request.getIdsMedicamentosAdministrados()) {
@@ -140,5 +140,10 @@ public class AtendimentoService {
         return atendimentos
                 .stream()
                 .map(this::mapAtendimentoToAtendimentoCompletoVO).toList();
+    }
+
+    @Transactional
+    public void ativarInativar(Long id) {
+        this.atendimentoRepository.ativarInativar(id);
     }
 }

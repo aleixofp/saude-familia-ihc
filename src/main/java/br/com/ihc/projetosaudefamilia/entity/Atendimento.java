@@ -47,6 +47,9 @@ public class Atendimento {
             inverseJoinColumns = @JoinColumn(name = "id_medicamento"))
     private List<Medicamento> medicamentosAdministrados = new ArrayList<>();
 
+    @Column(name = "is_ativo")
+    private boolean isAtivo = true;
+
     public Long getId() {
         return id;
     }
@@ -117,5 +120,13 @@ public class Atendimento {
 
     public void setMedicamentosAdministrados(List<Medicamento> medicamentosAdministrados) {
         this.medicamentosAdministrados = medicamentosAdministrados;
+    }
+
+    public boolean isAtivo() {
+        return isAtivo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        isAtivo = ativo;
     }
 }

@@ -37,6 +37,9 @@ public abstract class Pessoa {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCriacao = new Date();
 
+    @Column(name = "is_ativo")
+    private boolean isAtivo = true;
+
     public Pessoa(){
 
     }
@@ -115,5 +118,13 @@ public abstract class Pessoa {
 
     public void setDataCriacao(Date dataCriacao) {
         this.dataCriacao = dataCriacao;
+    }
+
+    public boolean isAtivo() {
+        return isAtivo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        isAtivo = ativo;
     }
 }
