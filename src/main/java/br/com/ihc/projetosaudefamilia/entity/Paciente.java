@@ -9,7 +9,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Paciente extends Pessoa {
 
-    @OneToMany(mappedBy = "paciente", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "paciente", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Atendimento> atendimentos = new ArrayList<>();
 
     public Paciente() {

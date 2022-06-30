@@ -41,7 +41,7 @@ public class Atendimento {
     @JoinColumn(name = "id_medico")
     private Medico medico;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "atendimento_medicamento",
             joinColumns = @JoinColumn(name = "id_atendimento"),
             inverseJoinColumns = @JoinColumn(name = "id_medicamento"))

@@ -26,7 +26,7 @@ public abstract class Pessoa {
     @Column(name = "telefone_contato")
     private String telefoneContato;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_endereco_residencia")
     private Endereco enderecoResidencia;
 
