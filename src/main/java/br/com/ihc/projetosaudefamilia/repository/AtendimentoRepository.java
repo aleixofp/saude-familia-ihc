@@ -13,4 +13,8 @@ public interface AtendimentoRepository extends JpaRepository<Atendimento, Long> 
     List<Atendimento> findByMedicoId(Long idMedico);
 
     List<Atendimento> findByPacienteId(Long idPaciente);
+
+    void deleteByPacienteId(Long idPaciente);
+
+    void deleteByMedicoId(Long idMedico);
 }

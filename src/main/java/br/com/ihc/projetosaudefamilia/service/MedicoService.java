@@ -2,6 +2,8 @@ package br.com.ihc.projetosaudefamilia.service;
 
 import br.com.ihc.projetosaudefamilia.exception.PessoaNaoEncontradaException;
 import br.com.ihc.projetosaudefamilia.mapper.MedicoMapper;
+import br.com.ihc.projetosaudefamilia.repository.AtendimentoRepository;
+import br.com.ihc.projetosaudefamilia.repository.EnderecoRepository;
 import br.com.ihc.projetosaudefamilia.repository.MedicoRepository;
 import br.com.ihc.projetosaudefamilia.vo.FiltroListaPessoaVO;
 import br.com.ihc.projetosaudefamilia.vo.MedicoVO;
@@ -16,6 +18,11 @@ public class MedicoService {
     @Autowired
     private MedicoRepository medicoRepository;
 
+    @Autowired
+    private AtendimentoRepository atendimentoRepository;
+
+    @Autowired
+    private EnderecoRepository enderecoRepository;
     @Autowired
     private MedicoMapper medicoMapper;
 
@@ -54,6 +61,8 @@ public class MedicoService {
     }
 
     public void excluir(Long id) {
+        this.enderecoRepository.deleteByPessoaResidenteId(id);
+        this.atendimentoRepository.deleteByMedicoId(id);
         this.medicoRepository.deleteById(id);
     }
 }
