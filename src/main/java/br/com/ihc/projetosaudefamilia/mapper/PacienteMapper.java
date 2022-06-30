@@ -24,7 +24,6 @@ public class PacienteMapper {
         paciente.setTelefoneContato(pessoaVO.getTelefone());
         paciente.setEnderecoResidencia( enderecoMapper.map(pessoaVO.getEndereco()) );
         paciente.setSenha(pessoaVO.getSenha());
-        paciente.setAtivo(pessoaVO.isAtivo());
         return paciente;
     }
 

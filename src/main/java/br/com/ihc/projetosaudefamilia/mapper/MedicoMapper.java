@@ -24,7 +24,6 @@ public class MedicoMapper {
         medico.setTelefoneContato(medicoVO.getTelefone());
         medico.setEnderecoResidencia( enderecoMapper.map(medicoVO.getEndereco()) );
         medico.setSenha(medicoVO.getSenha());
-        medico.setAtivo(medicoVO.isAtivo());
         return medico;
     }
 
